@@ -185,9 +185,10 @@ public class MainActivity extends Activity {
                 }
                 //各項の中にドットが2つ以上入らないようにする
                 if(viewsb.indexOf(".")!=-1) {//ドットがあればtrue
-                    if (viewsb.indexOf("+") != -1 && viewsb.indexOf("-") != -1 && viewsb.indexOf("*") != -1 && viewsb.indexOf("/") != -1) {//演算子があればtrue
-                        if(viewsb.indexOf(".",viewsb.indexOf("+"))!=-1 && viewsb.indexOf(".",viewsb.indexOf("-"))!=-1 && viewsb.indexOf(".",viewsb.indexOf("*"))!=-1 && viewsb.indexOf(".",viewsb.indexOf("/"))!=-1)//演算子より後ろにドットがあればtrue
-                            break;
+                    if ((viewsb.indexOf("+") == -1 && viewsb.indexOf("-") == -1 && viewsb.indexOf("*") == -1 && viewsb.indexOf("/") == -1)) {//演算子がなければtrue
+                        break;
+                    }else  if(viewsb.indexOf(".",viewsb.indexOf("+"))==-1 && viewsb.indexOf(".",viewsb.indexOf("-"))==-1 && viewsb.indexOf(".",viewsb.indexOf("*"))==-1 && viewsb.indexOf(".",viewsb.indexOf("/"))==-1) {//演算子より後ろにドットがあればtrue
+                        break;
                     }
                 }
                 if(equal_subsequent == true){
@@ -258,9 +259,13 @@ public class MainActivity extends Activity {
             case R.id.back :
                 if(viewsb.length()==0)
                     break;
-                viewsb.delete(viewsb.length(),viewsb.length());
-                calcsb.delete(viewsb.length(),viewsb.length());
-                calcvalues[1] = Double.parseDouble(calcsb.toString());
+                viewsb.delete(viewsb.length()-1,viewsb.length());
+                calcsb.delete(calcsb.length()-1,calcsb.length());
+                if(calcsb.toString().equals("")) {
+                    calcvalues[1] = 0.0;
+                }else{
+                    calcvalues[1] = Double.parseDouble(calcsb.toString());
+                }
                 tv.setText(viewsb.toString());
                 break;
         }
