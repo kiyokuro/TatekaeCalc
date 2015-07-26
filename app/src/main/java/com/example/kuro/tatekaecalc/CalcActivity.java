@@ -15,9 +15,12 @@ public class CalcActivity extends Activity{
     boolean is_numcopy = true;
     boolean equal_subsequent = false;
     boolean dot_exist  = false;
-    private int operator =  0;
+    private int operator =  0;//演算子が入る1=+,2=-,3=*,4=/
+    private boolean after_operator = true;//演算子が入力された。各項の初めに演算子とドットが入らないようにするため、初期値はtrueにする
+    boolean after_dot = false;//小数点が入力された後か
     public void calc(View view,TextView tv,TextView testtv){
-
+        if(viewsb.length()==0)
+            after_operator = false;
         if(viewsb.length()>=13 && view.getId()!=R.id.clear){
             if(viewsb.length()>=13 && view.getId()!=R.id.back){
                 return;
@@ -148,17 +151,30 @@ public class CalcActivity extends Activity{
                 break;
             case R.id.dot :
                 //項の初めにドットが入力されたら頭に0をつける
-                if(viewsb.length()==0 || viewsb.indexOf("+",viewsb.length()-1)==1){
+                /*if(viewsb.length()==0 || viewsb.indexOf("+",viewsb.length()-1)==1){
                     viewsb.append(0);
                     calcsb.append(0);
+                }*/
+                if(after_operator == true){
+                    viewsb.append(0);
+                    calcsb.append(0);
+                    after_operator = false;
                 }
                 //各項の中にドットが2つ以上入らないようにする
-                if(viewsb.indexOf(".")!=-1) {//ドットがあればtrue
-                    if ((viewsb.indexOf("+") == -1 && viewsb.indexOf("-") == -1 && viewsb.indexOf("*") == -1 && viewsb.indexOf("/") == -1)) {//演算子がなければtrue
+                /*if(viewsb.indexOf(".")==-1) {//ドットがない
+
+                }else{
+                    if ((viewsb.indexOf("+") == -1 && viewsb.indexOf("-") == -1 && viewsb.indexOf("*") == -1 && viewsb.indexOf("/") == -1)) {//演算子が何もない
                         break;
-                    }else  if(viewsb.indexOf(".",viewsb.indexOf("+"))==-1 && viewsb.indexOf(".",viewsb.indexOf("-"))==-1 && viewsb.indexOf(".",viewsb.indexOf("*"))==-1 && viewsb.indexOf(".",viewsb.indexOf("/"))==-1) {//演算子より後ろにドットがあればtrue
-                        break;
+                    }else{
+                        if(viewsb.indexOf(".",viewsb.indexOf("+"))==-1 || viewsb.indexOf(".",viewsb.indexOf("-"))==-1 ||
+                                viewsb.indexOf(".",viewsb.indexOf("*"))==-1 || viewsb.indexOf(".",viewsb.indexOf("/"))==-1) {//演算子より後ろにドットがあればtrue
+                            break;
+                        }
                     }
+                }*/
+                if(after_dot == true){
+                    break;
                 }
                 if(equal_subsequent == true){
                     viewsb.delete(0,viewsb.length());
@@ -170,8 +186,11 @@ public class CalcActivity extends Activity{
                 calcsb.append('.');
                 calcvalues[1] = Double.parseDouble(calcsb.toString());
                 tv.setText(viewsb.toString());
+                after_dot = true;
                 break;
             case R.id.plus :
+                if(after_operator == true)
+                    break;
                 operator = 1;
                 if(is_numcopy==true) {
                     calcvalues[0] = calcvalues[1];
@@ -179,9 +198,13 @@ public class CalcActivity extends Activity{
                 }
                 viewsb.append('+');
                 tv.setText(viewsb.toString());
-                calcsb.delete(0,calcsb.length());
+                calcsb.delete(0, calcsb.length());
+                after_dot = false;
+                equal_subsequent = false;
                 break;
             case R.id.minus :
+                if(after_operator == true)
+                    break;
                 operator = 2;
                 if(is_numcopy==true) {
                     calcvalues[0] = calcvalues[1];
@@ -189,9 +212,13 @@ public class CalcActivity extends Activity{
                 }
                 viewsb.append('-');
                 tv.setText(viewsb.toString());
-                calcsb.delete(0,calcsb.length());
+                calcsb.delete(0, calcsb.length());
+                after_dot = false;
+                equal_subsequent = false;
                 break;
             case R.id.multi :
+                if(after_operator == true)
+                    break;
                 operator = 3;
                 if(is_numcopy==true) {
                     calcvalues[0] = calcvalues[1];
@@ -199,9 +226,13 @@ public class CalcActivity extends Activity{
                 }
                 viewsb.append('*');
                 tv.setText(viewsb.toString());
-                calcsb.delete(0,calcsb.length());
+                calcsb.delete(0, calcsb.length());
+                after_dot = false;
+                equal_subsequent = false;
                 break;
             case R.id.divi :
+                if(after_operator == true)
+                    break;
                 operator = 4;
                 if(is_numcopy==true) {
                     calcvalues[0] = calcvalues[1];
@@ -210,12 +241,15 @@ public class CalcActivity extends Activity{
                 viewsb.append('/');
                 tv.setText(viewsb.toString());
                 calcsb.delete(0,calcsb.length());
+                after_dot = false;
+                equal_subsequent = false;
                 break;
             case R.id.equal :
                 equal_subsequent = true;
                 tv.setText(Double.toString(calc(operator)));
                 viewsb.delete(0,viewsb.length());
                 viewsb.append(calcvalues[0]);
+                after_dot = false;
                 break;
             case R.id.clear :
                 viewsb.delete(0,viewsb.length());
@@ -224,10 +258,13 @@ public class CalcActivity extends Activity{
                 calcvalues[1] = 0.0;
                 tv.setText(null);
                 is_numcopy = true;
+                after_dot = false;
                 break;
             case R.id.back :
                 if(viewsb.length()==0)
                     break;
+                if(viewsb.indexOf(".",viewsb.length()-1)==1)//1文字消してそれがドットならafter_dotをfalseに戻す
+                    after_dot = false;
                 viewsb.delete(viewsb.length()-1,viewsb.length());
                 calcsb.delete(calcsb.length()-1,calcsb.length());
                 if(calcsb.toString().equals("")) {
