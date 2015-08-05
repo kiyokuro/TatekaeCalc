@@ -5,15 +5,23 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends Activity {
+
+public class MainActivity extends Activity{
+    static List<String> dataList = new ArrayList<String>();
+    static ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setAdapter();
     }
 
     @Override
@@ -38,12 +46,23 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    protected void setAdapter(){
+        ListView lv = (ListView) findViewById(R.id.listView1);
+        adapter = new ArrayAdapter<String>( this, android.R.layout.simple_list_item_1, dataList);
+        lv.setAdapter(adapter);
+    }
+
     //画面のボタンが押された時の処理
     CalcActivity ca = new CalcActivity();
     public void viewNumber(View view){
         TextView tv = (TextView)findViewById(R.id.textView2);
         TextView testtv = (TextView)findViewById(R.id.textView1);//テスト用
         ca.calc(view,tv,testtv);//数字の表示、計算
+    }
+    /*ListViewの処理*/
+    ListActivity la = new ListActivity();
+    public void viewList(View view){
+        la.numStore(view);
     }
 
 }
