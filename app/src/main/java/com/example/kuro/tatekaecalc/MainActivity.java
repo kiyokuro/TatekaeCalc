@@ -21,7 +21,16 @@ public class MainActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setAdapter();
+
+        //ListViewのセット
+        ListView listView = (ListView)findViewById(R.id.listView);
+        //データの追加
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
+        adapter.add("a");
+        adapter.add("b");
+        adapter.add("c");
+
+        listView.setAdapter(adapter);
     }
 
     @Override
@@ -46,23 +55,13 @@ public class MainActivity extends Activity{
         return super.onOptionsItemSelected(item);
     }
 
-    protected void setAdapter(){
-        ListView lv = (ListView) findViewById(R.id.listView1);
-        adapter = new ArrayAdapter<String>( this, android.R.layout.simple_list_item_1, dataList);
-        lv.setAdapter(adapter);
-    }
 
     //画面のボタンが押された時の処理
-    CalcActivity ca = new CalcActivity();
+    Calc ca = new Calc();
     public void viewNumber(View view){
         TextView tv = (TextView)findViewById(R.id.textView2);
         TextView testtv = (TextView)findViewById(R.id.textView1);//テスト用
         ca.calc(view,tv,testtv);//数字の表示、計算
-    }
-    /*ListViewの処理*/
-    ListActivity la = new ListActivity();
-    public void viewList(View view){
-        la.numStore(view);
     }
 
 }
