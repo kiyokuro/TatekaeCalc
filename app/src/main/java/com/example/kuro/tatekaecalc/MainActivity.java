@@ -10,12 +10,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends Activity{
-    static List<String> dataList = new ArrayList<String>();
     static ArrayAdapter<String> adapter;
+    ListView listView;
+    ArrayList<String> formulaList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +23,13 @@ public class MainActivity extends Activity{
         setContentView(R.layout.activity_main);
 
         //ListViewのセット
-        ListView listView = (ListView)findViewById(R.id.listView);
+        listView = (ListView)findViewById(R.id.listView);
         //データの追加
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
-        adapter.add("a");
-        adapter.add("b");
-        adapter.add("c");
-
+        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,formulaList);
+    }
+    /*リストに式を追加するときのボタンを押した時の処理*/
+    public void addList(View view) {
+        formulaList.add("a");
         listView.setAdapter(adapter);
     }
 
