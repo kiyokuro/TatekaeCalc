@@ -12,6 +12,15 @@ public class Calc extends Activity{
     public String getViewsb(){
         return String.valueOf(viewsb);
     }
+    public void setViewsb(String str){
+        viewsb.append(str);
+        calcsb.append(str);
+    }
+    public void updateView(View view,TextView tv){
+        calcvalues[1] = Double.parseDouble(calcsb.toString());
+        tv.setText(viewsb.toString());
+        after_operator = false;
+    }
 
     private StringBuilder viewsb = new StringBuilder();//表示用
     private StringBuilder calcsb = new StringBuilder();//計算用int operator = 0;//演算子を保存
@@ -22,6 +31,7 @@ public class Calc extends Activity{
     private int operator =  0;//演算子が数字で入る1=+,2=-,3=*,4=/
     private boolean after_operator = true;//演算子が入力された。各項の初めに演算子とドットが入らないようにするため、初期値はtrueにする
     private boolean after_dot = false;//小数点が入力された後か
+
     public void calc(View view,TextView tv,TextView testtv){
         /*画面の数字を入力するエリアのサイズ上13文字以上は見えなくなるため入力させない*/
         if(viewsb.length()>=13 && view.getId()!=R.id.clear){
@@ -237,17 +247,20 @@ public class Calc extends Activity{
                 /*1文字消してそれがドットならafter_dotをfalseに戻す*/
                 if(viewsb.indexOf(".",viewsb.length()-1)==1)
                     after_dot = false;
+
                 /*calcsbには演算子が入っていないため処理を変える。*/
-                if(viewsb.lastIndexOf("+") == 1 || viewsb.lastIndexOf("-") == 1 ||viewsb.lastIndexOf("*") == 1 || viewsb.lastIndexOf("/") == 1){
+                if(viewsb.indexOf("+") == viewsb.length()-1 || viewsb.indexOf("-") == viewsb.length()-1 ||viewsb.indexOf("*") == viewsb.length()-1 || viewsb.indexOf("/") == viewsb.length()-1){
                     operator=0;
-                    calcvalues[0]=calcvalues[1];
+                    calcvalues[1]=calcvalues[0];
                     calcsb.append(calcvalues[1]);
-                    calcvalues[1]=0.0;
+                    calcvalues[0]=0.0;
                     after_operator = false;
                 }else {
                     calcsb.delete(calcsb.length() - 1, calcsb.length());
                 }
+
                 viewsb.delete(viewsb.length()-1,viewsb.length());
+
                 if(calcsb.toString().equals("")) {
                     after_operator = true;
                     calcvalues[1] = 0.0;
