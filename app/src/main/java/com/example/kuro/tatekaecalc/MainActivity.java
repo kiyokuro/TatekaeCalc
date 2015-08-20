@@ -16,6 +16,7 @@ public class MainActivity extends Activity{
     static ArrayAdapter<String> adapter;
     ListView listView;
     ArrayList<String> formulaList = new ArrayList<String>();
+    Calc ca = new Calc();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,8 @@ public class MainActivity extends Activity{
     }
     /*リストに式を追加するときのボタンを押した時の処理*/
     public void addList(View view) {
-        formulaList.add("a");
+        String str = ca.getViewsb();
+        formulaList.add(str);
         listView.setAdapter(adapter);
     }
 
@@ -57,7 +59,6 @@ public class MainActivity extends Activity{
 
 
     //画面のボタンが押された時の処理
-    Calc ca = new Calc();
     public void viewNumber(View view){
         TextView tv = (TextView)findViewById(R.id.textView2);
         TextView testtv = (TextView)findViewById(R.id.textView1);//テスト用

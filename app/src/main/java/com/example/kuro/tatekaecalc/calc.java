@@ -9,6 +9,10 @@ import android.widget.TextView;
  */
 
 public class Calc extends Activity{
+    public String getViewsb(){
+        return String.valueOf(viewsb);
+    }
+
     private StringBuilder viewsb = new StringBuilder();//表示用
     private StringBuilder calcsb = new StringBuilder();//計算用int operator = 0;//演算子を保存
     private Double[] calcvalues = new Double[2];
