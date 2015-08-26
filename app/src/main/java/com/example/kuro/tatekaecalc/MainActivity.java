@@ -29,25 +29,38 @@ public class MainActivity extends Activity{
         //データの追加
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,formulaList);
 
+        //リストのアイテムをタップした時の処理
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ListView listView = (ListView) parent;
+                listView = (ListView) parent;
                 // クリックされたアイテムを取得します
                 String item = (String) listView.getItemAtPosition(position);
                 //Toast.makeText(ListViewSampleActivity.this, item, Toast.LENGTH_LONG).show();
                 ca.setViewsb(item);
-                tv = (TextView)findViewById(R.id.textView2);
+                tv = (TextView) findViewById(R.id.textView2);
                 ca.updateView(view, tv);
             }
         });
+        //リストのアイテムを長押し時の処理
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                String item = (String) adapter.getItem(position);
+                adapter.remove(adapter.getItem(position));
+                adapter.notifyDataSetChanged();
+                return false;
+            }
+        });
     }
+
     /*リストに式を追加するときのボタンを押した時の処理*/
     public void addList(View view) {
         String str = ca.getViewsb();
-        formulaList.add(str);
-        listView.setAdapter(adapter);
-
+        if(str != "") {
+            formulaList.add(str);
+            listView.setAdapter(adapter);
+        }
     }
 
     @Override
@@ -78,5 +91,4 @@ public class MainActivity extends Activity{
         TextView testtv = (TextView)findViewById(R.id.textView1);//テスト用
         ca.calc(view,tv,testtv);//数字の表示、計算
     }
-
 }
