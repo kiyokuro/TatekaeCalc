@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -58,8 +59,12 @@ public class MainActivity extends Activity{
     public void addList(View view) {
         String str = ca.getViewsb();
         if(str != "") {
-            formulaList.add(str);
-            listView.setAdapter(adapter);
+            if(ca.getViewsb().indexOf("+") !=-1 || ca.getViewsb().indexOf("-") !=-1 || ca.getViewsb().indexOf("*") !=-1 || ca.getViewsb().indexOf("/") !=-1){
+                Toast.makeText(this, "You can serve only number", Toast.LENGTH_SHORT).show();
+            }else {
+                formulaList.add(str);
+                listView.setAdapter(adapter);
+            }
         }
     }
 
