@@ -34,7 +34,7 @@ public class Calc extends Activity{
     private boolean after_operator2 = false;
     private boolean after_dot = false;//小数点が入力された後か
 
-    public void calc(View view,TextView tv,TextView testtv){
+    public void calc(View view,TextView tv,TextView logtv){
         /*画面の数字を入力するエリアのサイズ上13文字以上は見えなくなるため入力させない*/
         if(viewsb.length()>=13 && view.getId()!=R.id.clear){
             if(viewsb.length()>=13 && view.getId()!=R.id.back){
@@ -157,6 +157,7 @@ public class Calc extends Activity{
                     break;
                 }
                 if(after_operator2 == true){
+                    showLog(logtv, viewsb);
                     calcvalues[0] = calc(operator);
                     viewsb.delete(0, viewsb.length());
                     calcsb.delete(0, calcsb.length());
@@ -182,6 +183,7 @@ public class Calc extends Activity{
                     break;
                 }
                 if(after_operator2 == true){
+                    showLog(logtv, viewsb);
                     calcvalues[0] = calc(operator);
                     viewsb.delete(0, viewsb.length());
                     calcsb.delete(0, calcsb.length());
@@ -207,6 +209,7 @@ public class Calc extends Activity{
                     break;
                 }
                 if(after_operator2 == true){
+                    showLog(logtv, viewsb);
                     calcvalues[0] = calc(operator);
                     viewsb.delete(0, viewsb.length());
                     calcsb.delete(0, calcsb.length());
@@ -232,6 +235,7 @@ public class Calc extends Activity{
                     break;
                 }
                 if(after_operator2 == true){
+                    showLog(logtv, viewsb);
                     calcvalues[0] = calc(operator);
                     viewsb.delete(0, viewsb.length());
                     calcsb.delete(0, calcsb.length());
@@ -254,6 +258,7 @@ public class Calc extends Activity{
             /*＝の処理*/
             case R.id.equal :
                 equal_subsequent = true;
+                showLog(logtv, viewsb);
                 tv.setText(Double.toString(calc(operator)));
                 viewsb.delete(0, viewsb.length());
                 viewsb.append(calcvalues[0]);
@@ -307,7 +312,7 @@ public class Calc extends Activity{
                 tv.setText(viewsb.toString());
                 break;
         }
-        testtv.setText("[0]:"+calcvalues[0]+" [1]:"+calcvalues[1]);//テスト用
+        //logtv.setText("[0]:" + calcvalues[0] + " [1]:" + calcvalues[1]);//テスト用
     }
     /*イコールが押された時の計算*/
     private double calc(int i){
@@ -328,6 +333,10 @@ public class Calc extends Activity{
                 break;
         }
         return calcvalues[0];
+    }
+
+    public void showLog(TextView logtv, StringBuilder viewsb){
+        logtv.setText(viewsb);
     }
     private void newInsert(){
         if(equal_subsequent == true){
