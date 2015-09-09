@@ -157,8 +157,12 @@ public class Calc extends Activity{
                     break;
                 }
                 if(after_operator2 == true){
+<<<<<<< HEAD
                     showLog(logtv, viewsb);
                     calcvalues[0] = calc(operator);
+=======
+                    calcvalues[0] = calc(operator,logtv,viewsb);
+>>>>>>> ShowLog
                     viewsb.delete(0, viewsb.length());
                     calcsb.delete(0, calcsb.length());
                     viewsb.append(calcvalues[0]);
@@ -183,8 +187,12 @@ public class Calc extends Activity{
                     break;
                 }
                 if(after_operator2 == true){
+<<<<<<< HEAD
                     showLog(logtv, viewsb);
                     calcvalues[0] = calc(operator);
+=======
+                    calcvalues[0] = calc(operator,logtv,viewsb);
+>>>>>>> ShowLog
                     viewsb.delete(0, viewsb.length());
                     calcsb.delete(0, calcsb.length());
                     viewsb.append(calcvalues[0]);
@@ -209,8 +217,12 @@ public class Calc extends Activity{
                     break;
                 }
                 if(after_operator2 == true){
+<<<<<<< HEAD
                     showLog(logtv, viewsb);
                     calcvalues[0] = calc(operator);
+=======
+                    calcvalues[0] = calc(operator,logtv,viewsb);
+>>>>>>> ShowLog
                     viewsb.delete(0, viewsb.length());
                     calcsb.delete(0, calcsb.length());
                     viewsb.append(calcvalues[0]);
@@ -235,8 +247,12 @@ public class Calc extends Activity{
                     break;
                 }
                 if(after_operator2 == true){
+<<<<<<< HEAD
                     showLog(logtv, viewsb);
                     calcvalues[0] = calc(operator);
+=======
+                    calcvalues[0] = calc(operator,logtv,viewsb);
+>>>>>>> ShowLog
                     viewsb.delete(0, viewsb.length());
                     calcsb.delete(0, calcsb.length());
                     viewsb.append(calcvalues[0]);
@@ -258,8 +274,12 @@ public class Calc extends Activity{
             /*＝の処理*/
             case R.id.equal :
                 equal_subsequent = true;
+<<<<<<< HEAD
                 showLog(logtv, viewsb);
                 tv.setText(Double.toString(calc(operator)));
+=======
+                tv.setText(Double.toString(calc(operator,logtv,viewsb)));
+>>>>>>> ShowLog
                 viewsb.delete(0, viewsb.length());
                 viewsb.append(calcvalues[0]);
                 calcsb.append(calcvalues[0]);
@@ -312,10 +332,15 @@ public class Calc extends Activity{
                 tv.setText(viewsb.toString());
                 break;
         }
+<<<<<<< HEAD
         //logtv.setText("[0]:" + calcvalues[0] + " [1]:" + calcvalues[1]);//テスト用
+=======
+        //logtv.setText("[0]:"+calcvalues[0]+" [1]:"+calcvalues[1]);//テスト用
+>>>>>>> ShowLog
     }
     /*イコールが押された時の計算*/
-    private double calc(int i){
+    private double calc(int i, TextView textView,StringBuilder viewsb){
+        textView.setText(String.valueOf(viewsb));
         switch (i){
             case 0 ://演算子が入ってない状態でイコールが押されたらなにもしない。
                 break;
