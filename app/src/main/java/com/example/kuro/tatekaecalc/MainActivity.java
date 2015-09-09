@@ -93,7 +93,7 @@ public class MainActivity extends Activity{
     //画面のボタンが押された時の処理
     public void viewNumber(View view){
         tv = (TextView)findViewById(R.id.textView2);
-        TextView testtv = (TextView)findViewById(R.id.textView1);//テスト用
-        ca.calc(view,tv,testtv);//数字の表示、計算
+        TextView logtv = (TextView)findViewById(R.id.textView1);//テスト用
+        ca.calc(view,tv,logtv);//数字の表示、計算
     }
 }
