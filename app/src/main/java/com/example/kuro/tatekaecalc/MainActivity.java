@@ -18,6 +18,9 @@ public class MainActivity extends Activity{
     static ArrayAdapter<String> adapter;
     ListView listView;
     ArrayList<String> formulaList = new ArrayList<String>();
+    static ArrayAdapter<String> adapter2;
+    ListView listView2;
+    ArrayList<String> logList = new ArrayList<String>();
     Calc ca = new Calc();
 
     @Override
@@ -29,6 +32,10 @@ public class MainActivity extends Activity{
         listView = (ListView)findViewById(R.id.listView);
         //データの追加
         adapter = new ArrayAdapter<String>(this,R.layout.list_layout,R.id.listText,formulaList);
+        //ListViewのセット
+        listView2 = (ListView)findViewById(R.id.listView2);
+        //データの追加
+        adapter2 = new ArrayAdapter<String>(this,R.layout.log_layout,R.id.logText,logList);
 
         //リストのアイテムをタップした時の処理
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -62,8 +69,11 @@ public class MainActivity extends Activity{
             if(ca.getViewsb().indexOf("+") !=-1 || ca.getViewsb().indexOf("-") !=-1 || ca.getViewsb().indexOf("*") !=-1 || ca.getViewsb().indexOf("/") !=-1){
                 Toast.makeText(this, "You can serve only number", Toast.LENGTH_SHORT).show();
             }else {
-                formulaList.add(str);
+                //formulaList.add(str);
                 listView.setAdapter(adapter);
+                // 要素を一番上に追加
+                adapter.insert(str, 0);
+
             }
         }
     }
@@ -94,6 +104,12 @@ public class MainActivity extends Activity{
     public void viewNumber(View view){
         tv = (TextView)findViewById(R.id.textView2);
         TextView logtv = (TextView)findViewById(R.id.log);//テスト用
-        ca.calc(view,tv,logtv);//数字の表示、計算
+        ca.calc(view,tv,logtv,adapter2,listView2);//数字の表示、計算
+    }
+
+    public void addLog(String str){
+        listView2.setAdapter(adapter2);
+        // 要素を一番上に追加
+        adapter2.insert(str, 0);
     }
 }

@@ -40,15 +40,33 @@
             android:layout_alignParentStart="true" />
     </FrameLayout>
 
-    <ListView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
         android:layout_below="@+id/frameLayout2"
         android:layout_above="@+id/gridLayout1"
+        android:orientation="horizontal"
+        android:background="@color/gray"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
-        android:background="@color/gray"/>
+        >
+
+        <ListView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView"
+            android:layout_marginRight="5dp"
+            android:background="@color/gray"/>
+
+        <ListView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView2"
+            android:background="@color/gray"/>
+    </LinearLayout>
+
 
     <GridLayout
         android:id="@+id/gridLayout1"

@@ -2,6 +2,8 @@ package com.example.kuro.tatekaecalc;
 
 import android.app.Activity;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 /**
@@ -34,7 +36,7 @@ public class Calc extends Activity{
     private boolean after_operator2 = false;
     private boolean after_dot = false;//小数点が入力された後か
 
-    public void calc(View view,TextView tv,TextView logtv){
+    public void calc(View view,TextView tv,TextView logtv,ArrayAdapter<String> adapter2,ListView listView2){
         /*画面の数字を入力するエリアのサイズ上13文字以上は見えなくなるため入力させない*/
         if(viewsb.length()>=16 && view.getId()!=R.id.clear){
             if(viewsb.length()>=16 && view.getId()!=R.id.back){
@@ -116,33 +118,33 @@ public class Calc extends Activity{
                 if(after_operator == true) {
                     break;
                 }
-                appendOperator(1, "+", tv, logtv);
+                appendOperator(1, "+", tv, logtv,adapter2,listView2);
                 break;
             /*－の処理*/
             case R.id.minus :
                 if(after_operator == true) {
                     break;
                 }
-                appendOperator(2, "-", tv, logtv);
+                appendOperator(2, "-", tv, logtv,adapter2,listView2);
                 break;
             /*×の処理*/
             case R.id.multi :
                 if(after_operator == true) {
                     break;
                 }
-                appendOperator(3, "*", tv, logtv);
+                appendOperator(3, "*", tv, logtv,adapter2,listView2);
                 break;
             /*÷の処理*/
             case R.id.divi :
                 if(after_operator == true) {
                     break;
                 }
-                appendOperator(4, "/", tv, logtv);
+                appendOperator(4, "/", tv, logtv,adapter2,listView2);
                 break;
             /*＝の処理*/
             case R.id.equal :
                 equal_subsequent = true;
-                tv.setText(Double.toString(calc(operator,logtv,viewsb)));
+                tv.setText(Double.toString(calc(operator,logtv,viewsb,adapter2,listView2)));
                 viewsb.delete(0, viewsb.length());
                 viewsb.append(calcvalues[0]);
                 calcsb.append(calcvalues[0]);
@@ -207,9 +209,9 @@ public class Calc extends Activity{
         after_operator = false;
     }
     /*StringBuilderに演算子を追加*/
-    private void appendOperator(int operator,String strOp, TextView tv, TextView logtv){
+    private void appendOperator(int operator,String strOp, TextView tv, TextView logtv,ArrayAdapter<String> adapter2,ListView listView2){
         if(after_operator2 == true){
-            calcvalues[0] = calc(operator,logtv,viewsb);
+            calcvalues[0] = calc(operator,logtv,viewsb,adapter2,listView2);
             viewsb.delete(0, viewsb.length());
             calcsb.delete(0, calcsb.length());
             viewsb.append(calcvalues[0]);
@@ -229,8 +231,11 @@ public class Calc extends Activity{
         after_operator2 = true;
     }
     /*イコールが押された時の計算*/
-    private double calc(int i, TextView textView,StringBuilder viewsb){
+    private double calc(int i, TextView textView,StringBuilder viewsb,ArrayAdapter<String> adapter2,ListView listView2){
         textView.setText(String.valueOf(viewsb));
+        listView2.setAdapter(adapter2);
+        // 要素を一番上に追加
+        adapter2.insert(String.valueOf(viewsb), 0);
         switch (i){
             case 0 ://演算子が入ってない状態でイコールが押されたらなにもしない。
                 break;
@@ -250,9 +255,6 @@ public class Calc extends Activity{
         return calcvalues[0];
     }
 
-    public void showLog(TextView logtv, StringBuilder viewsb){
-        logtv.setText(viewsb);
-    }
     private void newInsert(){
         if(equal_subsequent == true){
             viewsb.delete(0,viewsb.length());
@@ -262,12 +264,5 @@ public class Calc extends Activity{
             is_numcopy = true;
             equal_subsequent = false;
         }
-    }
-    private void inputNum(TextView tv, double num, StringBuilder calcsb){
-        calcsb.append(num);
-        viewsb.append(num);
-        calcvalues[1] = Double.parseDouble(calcsb.toString());
-        tv.setText(viewsb.toString());
-        after_operator = false;
     }
 }
