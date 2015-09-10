@@ -28,7 +28,7 @@ public class MainActivity extends Activity{
         //ListViewのセット
         listView = (ListView)findViewById(R.id.listView);
         //データの追加
-        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,formulaList);
+        adapter = new ArrayAdapter<String>(this,R.layout.list_layout,R.id.listText,formulaList);
 
         //リストのアイテムをタップした時の処理
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -93,11 +93,7 @@ public class MainActivity extends Activity{
     //画面のボタンが押された時の処理
     public void viewNumber(View view){
         tv = (TextView)findViewById(R.id.textView2);
-<<<<<<< HEAD
         TextView logtv = (TextView)findViewById(R.id.log);//テスト用
-=======
-        TextView logtv = (TextView)findViewById(R.id.textView1);//テスト用
->>>>>>> ShowLog
         ca.calc(view,tv,logtv);//数字の表示、計算
     }
 }

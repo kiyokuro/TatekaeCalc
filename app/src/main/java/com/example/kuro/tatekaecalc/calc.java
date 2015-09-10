@@ -36,8 +36,8 @@ public class Calc extends Activity{
 
     public void calc(View view,TextView tv,TextView logtv){
         /*画面の数字を入力するエリアのサイズ上13文字以上は見えなくなるため入力させない*/
-        if(viewsb.length()>=13 && view.getId()!=R.id.clear){
-            if(viewsb.length()>=13 && view.getId()!=R.id.back){
+        if(viewsb.length()>=16 && view.getId()!=R.id.clear){
+            if(viewsb.length()>=16 && view.getId()!=R.id.back){
                 return;
             }
         }
@@ -47,91 +47,51 @@ public class Calc extends Activity{
                 newInsert();
                 if(after_operator==true)
                     break;
-                calcsb.append(0);
-                viewsb.append(0);
-                calcvalues[1] = Double.parseDouble(calcsb.toString());
-                tv.setText(viewsb.toString());
-                after_operator = false;
+                appendNum(0,tv);
                 break;
             /*1の処理*/
             case R.id.number1 :
                 newInsert();
-                calcsb.append(1);
-                viewsb.append(1);
-                calcvalues[1] = Double.parseDouble(calcsb.toString());
-                tv.setText(viewsb.toString());
-                after_operator = false;
+                appendNum(1,tv);
                 break;
             /*2の処理*/
             case R.id.number2 :
                 newInsert();
-                calcsb.append(2);
-                viewsb.append(2);
-                calcvalues[1] = Double.parseDouble(calcsb.toString());
-                tv.setText(viewsb.toString());
-                after_operator = false;
+                appendNum(2,tv);
                 break;
             /*3の処理*/
             case R.id.number3 :
                 newInsert();
-                calcsb.append(3);
-                viewsb.append(3);
-                calcvalues[1] = Double.parseDouble(calcsb.toString());
-                tv.setText(viewsb.toString());
-                after_operator = false;
+                appendNum(3,tv);
                 break;
             /*4の処理*/
             case R.id.number4 :
                 newInsert();
-                calcsb.append(4);
-                viewsb.append(4);
-                calcvalues[1] = Double.parseDouble(calcsb.toString());
-                tv.setText(viewsb.toString());
-                after_operator = false;
+                appendNum(4,tv);
                 break;
             /*5の処理*/
             case R.id.number5 :
                 newInsert();
-                calcsb.append(5);
-                viewsb.append(5);
-                calcvalues[1] = Double.parseDouble(calcsb.toString());
-                tv.setText(viewsb.toString());
-                after_operator = false;
+                appendNum(5,tv);
                 break;
             /*6の処理*/
             case R.id.number6 :
-                calcsb.append(6);
-                viewsb.append(6);
-                calcvalues[1] = Double.parseDouble(calcsb.toString());
-                tv.setText(viewsb.toString());
-                after_operator = false;
+                appendNum(6,tv);
                 break;
             /*7の処理*/
             case R.id.number7 :
                 newInsert();
-                calcsb.append(7);
-                viewsb.append(7);
-                calcvalues[1] = Double.parseDouble(calcsb.toString());
-                tv.setText(viewsb.toString());
-                after_operator = false;
+                appendNum(7,tv);
                 break;
             /*8の処理*/
             case R.id.number8 :
                 newInsert();
-                calcsb.append(8);
-                viewsb.append(8);
-                calcvalues[1] = Double.parseDouble(calcsb.toString());
-                tv.setText(viewsb.toString());
-                after_operator = false;
+                appendNum(8,tv);
                 break;
             /*9の処理*/
             case R.id.number9 :
                 newInsert();
-                calcsb.append(9);
-                viewsb.append(9);
-                calcvalues[1] = Double.parseDouble(calcsb.toString());
-                tv.setText(viewsb.toString());
-                after_operator = false;
+                appendNum(9,tv);
                 break;
             /*.の処理*/
             case R.id.dot :
@@ -156,130 +116,33 @@ public class Calc extends Activity{
                 if(after_operator == true) {
                     break;
                 }
-                if(after_operator2 == true){
-<<<<<<< HEAD
-                    showLog(logtv, viewsb);
-                    calcvalues[0] = calc(operator);
-=======
-                    calcvalues[0] = calc(operator,logtv,viewsb);
->>>>>>> ShowLog
-                    viewsb.delete(0, viewsb.length());
-                    calcsb.delete(0, calcsb.length());
-                    viewsb.append(calcvalues[0]);
-                    calcsb.append(calcvalues[0]);
-                }
-                operator = 1;
-                if(is_numcopy==true) {
-                    calcvalues[0] = calcvalues[1];
-                    is_numcopy = false;
-                }
-                viewsb.append('+');
-                tv.setText(viewsb.toString());
-                calcsb.delete(0, calcsb.length());
-                after_dot = false;
-                equal_subsequent = false;
-                after_operator = true;
-                after_operator2 = true;
+                appendOperator(1, "+", tv, logtv);
                 break;
             /*－の処理*/
             case R.id.minus :
                 if(after_operator == true) {
                     break;
                 }
-                if(after_operator2 == true){
-<<<<<<< HEAD
-                    showLog(logtv, viewsb);
-                    calcvalues[0] = calc(operator);
-=======
-                    calcvalues[0] = calc(operator,logtv,viewsb);
->>>>>>> ShowLog
-                    viewsb.delete(0, viewsb.length());
-                    calcsb.delete(0, calcsb.length());
-                    viewsb.append(calcvalues[0]);
-                    calcsb.append(calcvalues[0]);
-                }
-                operator = 2;
-                if(is_numcopy==true) {
-                    calcvalues[0] = calcvalues[1];
-                    is_numcopy = false;
-                }
-                viewsb.append('-');
-                tv.setText(viewsb.toString());
-                calcsb.delete(0, calcsb.length());
-                after_dot = false;
-                equal_subsequent = false;
-                after_operator = true;
-                after_operator2 = true;
+                appendOperator(2, "-", tv, logtv);
                 break;
             /*×の処理*/
             case R.id.multi :
                 if(after_operator == true) {
                     break;
                 }
-                if(after_operator2 == true){
-<<<<<<< HEAD
-                    showLog(logtv, viewsb);
-                    calcvalues[0] = calc(operator);
-=======
-                    calcvalues[0] = calc(operator,logtv,viewsb);
->>>>>>> ShowLog
-                    viewsb.delete(0, viewsb.length());
-                    calcsb.delete(0, calcsb.length());
-                    viewsb.append(calcvalues[0]);
-                    calcsb.append(calcvalues[0]);
-                }
-                operator = 3;
-                if(is_numcopy==true) {
-                    calcvalues[0] = calcvalues[1];
-                    is_numcopy = false;
-                }
-                viewsb.append('*');
-                tv.setText(viewsb.toString());
-                calcsb.delete(0, calcsb.length());
-                after_dot = false;
-                equal_subsequent = false;
-                after_operator = true;
-                after_operator2 = true;
+                appendOperator(3, "*", tv, logtv);
                 break;
             /*÷の処理*/
             case R.id.divi :
                 if(after_operator == true) {
                     break;
                 }
-                if(after_operator2 == true){
-<<<<<<< HEAD
-                    showLog(logtv, viewsb);
-                    calcvalues[0] = calc(operator);
-=======
-                    calcvalues[0] = calc(operator,logtv,viewsb);
->>>>>>> ShowLog
-                    viewsb.delete(0, viewsb.length());
-                    calcsb.delete(0, calcsb.length());
-                    viewsb.append(calcvalues[0]);
-                    calcsb.append(calcvalues[0]);
-                }
-                operator = 4;
-                if(is_numcopy==true) {
-                    calcvalues[0] = calcvalues[1];
-                    is_numcopy = false;
-                }
-                viewsb.append('/');
-                tv.setText(viewsb.toString());
-                calcsb.delete(0, calcsb.length());
-                after_dot = false;
-                equal_subsequent = false;
-                after_operator = true;
-                after_operator2 = true;
+                appendOperator(4, "/", tv, logtv);
                 break;
             /*＝の処理*/
             case R.id.equal :
                 equal_subsequent = true;
-<<<<<<< HEAD
-                showLog(logtv, viewsb);
-                tv.setText(Double.toString(calc(operator)));
-=======
                 tv.setText(Double.toString(calc(operator,logtv,viewsb)));
->>>>>>> ShowLog
                 viewsb.delete(0, viewsb.length());
                 viewsb.append(calcvalues[0]);
                 calcsb.append(calcvalues[0]);
@@ -332,11 +195,38 @@ public class Calc extends Activity{
                 tv.setText(viewsb.toString());
                 break;
         }
-<<<<<<< HEAD
         //logtv.setText("[0]:" + calcvalues[0] + " [1]:" + calcvalues[1]);//テスト用
-=======
-        //logtv.setText("[0]:"+calcvalues[0]+" [1]:"+calcvalues[1]);//テスト用
->>>>>>> ShowLog
+    }
+
+    /*StringBuilderに数字を追加*/
+    private  void appendNum(int num,TextView tv) {
+        calcsb.append(num);
+        viewsb.append(num);
+        calcvalues[1] = Double.parseDouble(calcsb.toString());
+        tv.setText(viewsb.toString());
+        after_operator = false;
+    }
+    /*StringBuilderに演算子を追加*/
+    private void appendOperator(int operator,String strOp, TextView tv, TextView logtv){
+        if(after_operator2 == true){
+            calcvalues[0] = calc(operator,logtv,viewsb);
+            viewsb.delete(0, viewsb.length());
+            calcsb.delete(0, calcsb.length());
+            viewsb.append(calcvalues[0]);
+            calcsb.append(calcvalues[0]);
+        }
+        this.operator = operator;
+        if(is_numcopy==true) {
+            calcvalues[0] = calcvalues[1];
+            is_numcopy = false;
+        }
+        viewsb.append(strOp);
+        tv.setText(viewsb.toString());
+        calcsb.delete(0, calcsb.length());
+        after_dot = false;
+        equal_subsequent = false;
+        after_operator = true;
+        after_operator2 = true;
     }
     /*イコールが押された時の計算*/
     private double calc(int i, TextView textView,StringBuilder viewsb){
