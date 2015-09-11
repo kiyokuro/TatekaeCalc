@@ -1,264 +1,220 @@
 package com.example.kuro.tatekaecalc;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import jp.hishidama.eval.ExpRuleFactory;
+import jp.hishidama.eval.Expression;
+import jp.hishidama.eval.Rule;
 
 /**
  * Created by kiyokuro on 2015/07/04.
  */
 
 public class Calc extends Activity{
-    public String getViewsb(){
-        return String.valueOf(viewsb);
-    }
-    public boolean getAfterOperator(){return after_operator;}
-    public void setViewsb(String str){
-        viewsb.append(str);
-        calcsb.append(str);
-    }
+    public String getFormula(){return String.valueOf(formula);}
+    public void setFormula(String str){formula.append(str);}
     public void updateView(View view,TextView tv){
-        calcvalues[1] = Double.parseDouble(calcsb.toString());
-        tv.setText(viewsb.toString());
-        after_operator = false;
+        tv.setText(formula.toString());
+        if(formula.indexOf("+",formula.length()-1)==-1 && formula.indexOf("-",formula.length()-1)==-1 && formula.indexOf("*",formula.length()-1)==-1 && formula.indexOf("/",formula.length()-1)==-1) {
+            after_operator = false;
+        }else{
+            after_operator = true;
+        }
     }
 
-    private StringBuilder viewsb = new StringBuilder();//•\¦—p
-    private StringBuilder calcsb = new StringBuilder();//ŒvZ—pint operator = 0;//‰‰Zq‚ğ•Û‘¶
+    private StringBuilder formula = new StringBuilder();
     private Double[] calcvalues = new Double[2];
     private boolean is_numcopy = true;
-    private boolean equal_subsequent = false;//ƒCƒR[ƒ‹‚ª‰Ÿ‚³‚ê‚½Œã‚©
-    private boolean dot_exist  = false;
-    private int operator =  0;//‰‰Zq‚ª”š‚Å“ü‚é1=+,2=-,3=*,4=/
-    private boolean after_operator = true;//‰‰Zq‚ª“ü—Í‚³‚ê‚½BŠe€‚Ì‰‚ß‚É‰‰Zq‚Æƒhƒbƒg‚ª“ü‚ç‚È‚¢‚æ‚¤‚É‚·‚é‚½‚ßA‰Šú’l‚Ítrue‚É‚·‚é
-    private boolean after_operator2 = false;
-    private boolean after_dot = false;//¬”“_‚ª“ü—Í‚³‚ê‚½Œã‚©
+    private boolean equal_subsequent = false;//ã‚¤ã‚³ãƒ¼ãƒ«ãŒæŠ¼ã•ã‚ŒãŸå¾Œã‹
+    private int operator =  0;//æ¼”ç®—å­ãŒæ•°å­—ã§å…¥ã‚‹1=+,2=-,3=*,4=/
+    private boolean after_operator = true;//æ¼”ç®—å­ãŒå…¥åŠ›ã•ã‚ŒãŸã€‚å„é …ã®åˆã‚ã«æ¼”ç®—å­ã¨ãƒ‰ãƒƒãƒˆãŒå…¥ã‚‰ãªã„ã‚ˆã†ã«ã™ã‚‹ãŸã‚ã€åˆæœŸå€¤ã¯trueã«ã™ã‚‹
+    private boolean after_operator2 = true;
+    private boolean after_dot = false;//å°æ•°ç‚¹ãŒå…¥åŠ›ã•ã‚ŒãŸå¾Œã‹
 
     public void calc(View view,TextView tv,TextView logtv,ArrayAdapter<String> adapter2,ListView listView2){
-        /*‰æ–Ê‚Ì”š‚ğ“ü—Í‚·‚éƒGƒŠƒA‚ÌƒTƒCƒYã13•¶šˆÈã‚ÍŒ©‚¦‚È‚­‚È‚é‚½‚ß“ü—Í‚³‚¹‚È‚¢*/
-        if(viewsb.length()>=16 && view.getId()!=R.id.clear){
-            if(viewsb.length()>=16 && view.getId()!=R.id.back){
-                return;
-            }
-        }
+        /*ç”»é¢ã®æ•°å­—ã‚’å…¥åŠ›ã™ã‚‹ã‚¨ãƒªã‚¢ã®ã‚µã‚¤ã‚ºä¸Š13æ–‡å­—ä»¥ä¸Šã¯è¦‹ãˆãªããªã‚‹ãŸã‚å…¥åŠ›ã•ã›ãªã„*/
+        //if(formula.length()>=15 && view.getId()!=R.id.clear){
+            //if(formula.length()>=15 && view.getId()!=R.id.back){
+                //return;
+            //}
+        //}
         switch(view.getId()){
-            /*0‚Ìˆ—*/
+            /*0ã®å‡¦ç†*/
             case R.id.number0 :
                 newInsert();
-                if(after_operator==true)
-                    break;
+                //if(after_operator==true)
+                //    break;
                 appendNum(0,tv);
                 break;
-            /*1‚Ìˆ—*/
+            /*1ã®å‡¦ç†*/
             case R.id.number1 :
                 newInsert();
                 appendNum(1,tv);
                 break;
-            /*2‚Ìˆ—*/
+            /*2ã®å‡¦ç†*/
             case R.id.number2 :
                 newInsert();
                 appendNum(2,tv);
                 break;
-            /*3‚Ìˆ—*/
+            /*3ã®å‡¦ç†*/
             case R.id.number3 :
                 newInsert();
                 appendNum(3,tv);
                 break;
-            /*4‚Ìˆ—*/
+            /*4ã®å‡¦ç†*/
             case R.id.number4 :
                 newInsert();
                 appendNum(4,tv);
                 break;
-            /*5‚Ìˆ—*/
+            /*5ã®å‡¦ç†*/
             case R.id.number5 :
                 newInsert();
                 appendNum(5,tv);
                 break;
-            /*6‚Ìˆ—*/
+            /*6ã®å‡¦ç†*/
             case R.id.number6 :
                 appendNum(6,tv);
                 break;
-            /*7‚Ìˆ—*/
+            /*7ã®å‡¦ç†*/
             case R.id.number7 :
                 newInsert();
                 appendNum(7,tv);
                 break;
-            /*8‚Ìˆ—*/
+            /*8ã®å‡¦ç†*/
             case R.id.number8 :
                 newInsert();
                 appendNum(8,tv);
                 break;
-            /*9‚Ìˆ—*/
+            /*9ã®å‡¦ç†*/
             case R.id.number9 :
                 newInsert();
                 appendNum(9,tv);
                 break;
-            /*.‚Ìˆ—*/
+            /*.ã®å‡¦ç†*/
             case R.id.dot :
-                //€‚Ì‰‚ß‚Éƒhƒbƒg‚ª“ü—Í‚³‚ê‚½‚ç“ª‚É0‚ğ‚Â‚¯‚é
-                if(after_operator==true){
-                    viewsb.append(0);
-                    calcsb.append(0);
-                    after_operator = false;
+                if(formula.indexOf(".",formula.length()-1)==-1 && after_dot == false){
+                    //é …ã®åˆã‚ã«ãƒ‰ãƒƒãƒˆãŒå…¥åŠ›ã•ã‚ŒãŸã‚‰é ­ã«0ã‚’ã¤ã‘ã‚‹
+                    if (after_operator == true) {
+                        formula.append(0);
+                        after_operator = false;
+                    }
+                /*å„é …ã®ä¸­ã«ãƒ‰ãƒƒãƒˆãŒ2ã¤ä»¥ä¸Šå…¥ã‚‰ãªã„ã‚ˆã†ã«ã™ã‚‹*/
+                    //if (after_dot == true) {
+                        //break;
+                    //}
+                    formula.append('.');
+                    after_dot = true;
+                    tv.setText(formula.toString());
                 }
-                /*Še€‚Ì’†‚Éƒhƒbƒg‚ª2‚ÂˆÈã“ü‚ç‚È‚¢‚æ‚¤‚É‚·‚é*/
-                if(after_dot == true){
-                    break;
-                }
-                viewsb.append('.');
-                calcsb.append('.');
-                calcvalues[1] = Double.parseDouble(calcsb.toString());
-                tv.setText(viewsb.toString());
-                after_dot = true;
                 break;
-            /*{‚Ìˆ—*/
+            /*ï¼‹ã®å‡¦ç†*/
             case R.id.plus :
                 if(after_operator == true) {
                     break;
                 }
                 appendOperator(1, "+", tv, logtv,adapter2,listView2);
                 break;
-            /*|‚Ìˆ—*/
+            /*ï¼ã®å‡¦ç†*/
             case R.id.minus :
                 if(after_operator == true) {
                     break;
                 }
                 appendOperator(2, "-", tv, logtv,adapter2,listView2);
                 break;
-            /*~‚Ìˆ—*/
+            /*Ã—ã®å‡¦ç†*/
             case R.id.multi :
                 if(after_operator == true) {
                     break;
                 }
                 appendOperator(3, "*", tv, logtv,adapter2,listView2);
                 break;
-            /*€‚Ìˆ—*/
+            /*Ã·ã®å‡¦ç†*/
             case R.id.divi :
                 if(after_operator == true) {
                     break;
                 }
                 appendOperator(4, "/", tv, logtv,adapter2,listView2);
                 break;
-            /*‚Ìˆ—*/
+            /*ï¼ã®å‡¦ç†*/
             case R.id.equal :
                 equal_subsequent = true;
-                tv.setText(Double.toString(calc(operator,logtv,viewsb,adapter2,listView2)));
-                viewsb.delete(0, viewsb.length());
-                viewsb.append(calcvalues[0]);
-                calcsb.append(calcvalues[0]);
+                tv.setText(Double.toString(calc(operator,logtv,formula,adapter2,listView2)));
                 after_dot = false;
-                after_operator2 = false;
+                after_operator2 = true;
                 break;
-            /*CRL‚Ìˆ—*/
+            /*CRLã®å‡¦ç†*/
             case R.id.clear :
-                viewsb.delete(0,viewsb.length());
-                calcsb.delete(0, calcsb.length());
-                calcvalues[0] = 0.0;
-                calcvalues[1] = 0.0;
+                formula.delete(0,formula.length());
                 tv.setText(null);
                 operator=0;
                 is_numcopy = true;
                 after_dot = false;
                 after_operator = true;
-                after_operator2 = false;
+                after_operator2 = true;
                 break;
-            /*1•¶šÁ‚·ƒ{ƒ^ƒ“‚Ìˆ—*/
+            /*1æ–‡å­—æ¶ˆã™ãƒœã‚¿ãƒ³ã®å‡¦ç†*/
             case R.id.back :
-                if(viewsb.length()==0)
+                if(formula.length()==0) {
                     break;
-                /*1•¶šÁ‚µ‚Ä‚»‚ê‚ªƒhƒbƒg‚È‚çafter_dot‚ğfalse‚É–ß‚·*/
-                if(viewsb.indexOf(".",viewsb.length()-1)==1)
+                }
+                /*1æ–‡å­—æ¶ˆã—ã¦ãã‚ŒãŒãƒ‰ãƒƒãƒˆãªã‚‰after_dotã‚’falseã«æˆ»ã™*/
+                if(formula.lastIndexOf(".")==formula.length()-1) {
                     after_dot = false;
-
-                /*calcsb‚É‚Í‰‰Zq‚ª“ü‚Á‚Ä‚¢‚È‚¢‚½‚ßˆ—‚ğ•Ï‚¦‚éB*/
-                if(viewsb.indexOf("+") == viewsb.length()-1 || viewsb.indexOf("-") == viewsb.length()-1 ||viewsb.indexOf("*") == viewsb.length()-1 || viewsb.indexOf("/") == viewsb.length()-1){
-                    operator=0;
-                    calcvalues[1]=calcvalues[0];
-                    calcsb.append(calcvalues[1]);
-                    calcvalues[0]=0.0;
-                    after_operator = false;
-                    after_operator2 = false;
-                }else {
-                    calcsb.delete(calcsb.length() - 1, calcsb.length());
                 }
-
-                viewsb.delete(viewsb.length()-1,viewsb.length());
-
-                if(calcsb.toString().equals("")) {
-                    after_operator = true;
-                    calcvalues[1] = 0.0;
-                }else if(equal_subsequent==true) {
-                    newInsert();
-                }else{
-                    calcvalues[1] = Double.parseDouble(calcsb.toString());
-                }
-                tv.setText(viewsb.toString());
+                Log.v("â˜…", String.valueOf(after_dot));
+                formula.delete(formula.length()-1,formula.length());
+                tv.setText(formula.toString());
                 break;
         }
-        //logtv.setText("[0]:" + calcvalues[0] + " [1]:" + calcvalues[1]);//ƒeƒXƒg—p
+        //logtv.setText("[0]:" + calcvalues[0] + " [1]:" + calcvalues[1]);//ãƒ†ã‚¹ãƒˆç”¨
     }
 
-    /*StringBuilder‚É”š‚ğ’Ç‰Á*/
+    /*StringBuilderã«æ•°å­—ã‚’è¿½åŠ */
     private  void appendNum(int num,TextView tv) {
-        calcsb.append(num);
-        viewsb.append(num);
-        calcvalues[1] = Double.parseDouble(calcsb.toString());
-        tv.setText(viewsb.toString());
+        formula.append(num);
+        tv.setText(formula.toString());
         after_operator = false;
     }
-    /*StringBuilder‚É‰‰Zq‚ğ’Ç‰Á*/
+    /*StringBuilderã«æ¼”ç®—å­ã‚’è¿½åŠ */
     private void appendOperator(int operator,String strOp, TextView tv, TextView logtv,ArrayAdapter<String> adapter2,ListView listView2){
-        if(after_operator2 == true){
-            calcvalues[0] = calc(operator,logtv,viewsb,adapter2,listView2);
-            viewsb.delete(0, viewsb.length());
-            calcsb.delete(0, calcsb.length());
-            viewsb.append(calcvalues[0]);
-            calcsb.append(calcvalues[0]);
+        if(formula.indexOf("+",formula.length()-1)==-1 && formula.indexOf("-",formula.length() - 1) == -1 && formula.indexOf("*",formula.length()-1)==-1 && formula.indexOf("/",formula.length()-1)==-1) {
+            this.operator = operator;
+            formula.append(strOp);
+            tv.setText(formula.toString());
+            after_dot = false;
+            equal_subsequent = false;
+            after_operator = true;
+            after_operator2 = true;
+        }else{
+            return;
         }
-        this.operator = operator;
-        if(is_numcopy==true) {
-            calcvalues[0] = calcvalues[1];
-            is_numcopy = false;
-        }
-        viewsb.append(strOp);
-        tv.setText(viewsb.toString());
-        calcsb.delete(0, calcsb.length());
-        after_dot = false;
-        equal_subsequent = false;
-        after_operator = true;
-        after_operator2 = true;
     }
-    /*ƒCƒR[ƒ‹‚ª‰Ÿ‚³‚ê‚½‚ÌŒvZ*/
-    private double calc(int i, TextView textView,StringBuilder viewsb,ArrayAdapter<String> adapter2,ListView listView2){
-        textView.setText(String.valueOf(viewsb));
+
+    /*ã‚¤ã‚³ãƒ¼ãƒ«ãŒæŠ¼ã•ã‚ŒãŸæ™‚ã®è¨ˆç®—*/
+    private double calc(int i, TextView textView,StringBuilder formula,ArrayAdapter<String> adapter2,ListView listView2){
+        textView.setText(String.valueOf(formula));
         listView2.setAdapter(adapter2);
-        // —v‘f‚ğˆê”Ôã‚É’Ç‰Á
-        adapter2.insert(String.valueOf(viewsb), 0);
-        switch (i){
-            case 0 ://‰‰Zq‚ª“ü‚Á‚Ä‚È‚¢ó‘Ô‚ÅƒCƒR[ƒ‹‚ª‰Ÿ‚³‚ê‚½‚ç‚È‚É‚à‚µ‚È‚¢B
-                break;
-            case 1 :
-                calcvalues[0] = calcvalues[0] + calcvalues[1];
-                break;
-            case 2 :
-                calcvalues[0] = calcvalues[0] - calcvalues[1];
-                break;
-            case 3 :
-                calcvalues[0] = calcvalues[0] * calcvalues[1];
-                break;
-            case 4 :
-                calcvalues[0] = calcvalues[0] / calcvalues[1];
-                break;
-        }
-        return calcvalues[0];
+        // è¦ç´ ã‚’ä¸€ç•ªä¸Šã«è¿½åŠ 
+        adapter2.insert(String.valueOf(formula), 0);
+
+        Rule rule = ExpRuleFactory.getDefaultRule();
+        Expression exp = rule.parse(String.valueOf(formula));//è§£æ
+        double result = exp.evalDouble(); //è¨ˆç®—å®Ÿæ–½
+
+        formula.delete(0,formula.length());
+        formula.append(result);
+
+        return result;
     }
 
     private void newInsert(){
         if(equal_subsequent == true){
-            viewsb.delete(0,viewsb.length());
-            calcsb.delete(0,calcsb.length());
+            formula.delete(0,formula.length());
             calcvalues[0]=0.0;
             calcvalues[1]=0.0;
             is_numcopy = true;

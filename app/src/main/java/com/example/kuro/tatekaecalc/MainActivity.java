@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -45,7 +44,8 @@ public class MainActivity extends Activity{
                 // クリックされたアイテムを取得します
                 String item = (String) listView.getItemAtPosition(position);
                 //Toast.makeText(ListViewSampleActivity.this, item, Toast.LENGTH_LONG).show();
-                ca.setViewsb(item);
+                //ca.setViewsb(item);
+                ca.setFormula(item);
                 tv = (TextView) findViewById(R.id.textView2);
                 ca.updateView(view, tv);
             }
@@ -64,17 +64,17 @@ public class MainActivity extends Activity{
 
     /*リストに式を追加するときのボタンを押した時の処理*/
     public void addList(View view) {
-        String str = ca.getViewsb();
+        String str = ca.getFormula();
         if(str != "") {
-            if(ca.getViewsb().indexOf("+") !=-1 || ca.getViewsb().indexOf("-") !=-1 || ca.getViewsb().indexOf("*") !=-1 || ca.getViewsb().indexOf("/") !=-1){
-                Toast.makeText(this, "You can serve only number", Toast.LENGTH_SHORT).show();
-            }else {
+//            if(ca.getViewsb().indexOf("+") !=-1 || ca.getViewsb().indexOf("-") !=-1 || ca.getViewsb().indexOf("*") !=-1 || ca.getViewsb().indexOf("/") !=-1){
+//                Toast.makeText(this, "You can serve only number", Toast.LENGTH_SHORT).show();
+//            }else {
                 //formulaList.add(str);
                 listView.setAdapter(adapter);
                 // 要素を一番上に追加
                 adapter.insert(str, 0);
 
-            }
+//            }
         }
     }
 
