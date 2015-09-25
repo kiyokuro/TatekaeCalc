@@ -36,7 +36,7 @@ public class Calc extends Activity{
     private boolean after_operator2 = true;
     private boolean after_dot = false;//小数点が入力された後か
 
-    public void calc(View view,TextView tv,TextView logtv,ArrayAdapter<String> adapter2,ListView listView2){
+    public void calc(View view,TextView tv,ArrayAdapter<String> adapter2,ListView listView2){
         /*画面の数字を入力するエリアのサイズ上13文字以上は見えなくなるため入力させない*/
         //if(formula.length()>=15 && view.getId()!=R.id.clear){
             //if(formula.length()>=15 && view.getId()!=R.id.back){
@@ -117,33 +117,33 @@ public class Calc extends Activity{
                 if(after_operator == true) {
                     break;
                 }
-                appendOperator(1, "+", tv, logtv,adapter2,listView2);
+                appendOperator(1, "+", tv, adapter2,listView2);
                 break;
             /*－の処理*/
             case R.id.minus :
                 if(after_operator == true) {
                     break;
                 }
-                appendOperator(2, "-", tv, logtv,adapter2,listView2);
+                appendOperator(2, "-", tv, adapter2,listView2);
                 break;
             /*×の処理*/
             case R.id.multi :
                 if(after_operator == true) {
                     break;
                 }
-                appendOperator(3, "*", tv, logtv,adapter2,listView2);
+                appendOperator(3, "*", tv, adapter2,listView2);
                 break;
             /*÷の処理*/
             case R.id.divi :
                 if(after_operator == true) {
                     break;
                 }
-                appendOperator(4, "/", tv, logtv,adapter2,listView2);
+                appendOperator(4, "/", tv, adapter2,listView2);
                 break;
             /*＝の処理*/
             case R.id.equal :
                 equal_subsequent = true;
-                tv.setText(Double.toString(calc(operator,logtv,formula,adapter2,listView2)));
+                tv.setText(Double.toString(calc(operator,formula,adapter2,listView2)));
                 after_dot = false;
                 after_operator2 = true;
                 break;
@@ -181,7 +181,7 @@ public class Calc extends Activity{
         after_operator = false;
     }
     /*StringBuilderに演算子を追加*/
-    private void appendOperator(int operator,String strOp, TextView tv, TextView logtv,ArrayAdapter<String> adapter2,ListView listView2){
+    private void appendOperator(int operator,String strOp, TextView tv, ArrayAdapter<String> adapter2,ListView listView2){
         if(formula.indexOf("+",formula.length()-1)==-1 && formula.indexOf("-",formula.length() - 1) == -1 && formula.indexOf("*",formula.length()-1)==-1 && formula.indexOf("/",formula.length()-1)==-1) {
             this.operator = operator;
             formula.append(strOp);
@@ -196,11 +196,15 @@ public class Calc extends Activity{
     }
 
     /*イコールが押された時の計算*/
-    private double calc(int i, TextView textView,StringBuilder formula,ArrayAdapter<String> adapter2,ListView listView2){
-        textView.setText(String.valueOf(formula));
+    private double calc(int i, StringBuilder formula,ArrayAdapter<String> adapter2,ListView listView2){
+        after_dot=true;////////////////////////////////////////////////////////////////////////////////////////////////////この処理は消す可能性がある
+        //textView.setText(String.valueOf(formula));
         listView2.setAdapter(adapter2);
         // 要素を一番上に追加
         adapter2.insert(String.valueOf(formula), 0);
+        if(listView2.getCount() > 20){
+            adapter2.remove(adapter2.getItem(20));
+        }
 
         Rule rule = ExpRuleFactory.getDefaultRule();
         Expression exp = rule.parse(String.valueOf(formula));//解析

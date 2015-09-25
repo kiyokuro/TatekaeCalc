@@ -27,7 +27,7 @@ public class MainActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //ListViewのセット
+        //ListView  のセット
         listView = (ListView)findViewById(R.id.listView);
         //データの追加
         adapter = new ArrayAdapter<String>(this,R.layout.list_layout,R.id.listText,formulaList);
@@ -103,8 +103,9 @@ public class MainActivity extends Activity{
     //画面のボタンが押された時の処理
     public void viewNumber(View view){
         tv = (TextView)findViewById(R.id.textView2);
-        TextView logtv = (TextView)findViewById(R.id.log);//テスト用
-        ca.calc(view,tv,logtv,adapter2,listView2);//数字の表示、計算
+        //TextView logtv = (TextView)findViewById(R.id.log);//テスト用
+        //ca.calc(view,tv,logtv,adapter2,listView2);//数字の表示、計算
+        ca.calc(view,tv,adapter2,listView2);
     }
 
     public void addLog(String str){
