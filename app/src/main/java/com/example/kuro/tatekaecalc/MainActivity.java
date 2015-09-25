@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -18,6 +17,9 @@ public class MainActivity extends Activity{
     static ArrayAdapter<String> adapter;
     ListView listView;
     ArrayList<String> formulaList = new ArrayList<String>();
+    static ArrayAdapter<String> adapter2;
+    ListView listView2;
+    ArrayList<String> logList = new ArrayList<String>();
     Calc ca = new Calc();
 
     @Override
@@ -25,10 +27,14 @@ public class MainActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //ListViewのセット
+        //ListView  のセット
         listView = (ListView)findViewById(R.id.listView);
         //データの追加
-        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,formulaList);
+        adapter = new ArrayAdapter<String>(this,R.layout.list_layout,R.id.listText,formulaList);
+        //ListViewのセット
+        listView2 = (ListView)findViewById(R.id.listView2);
+        //データの追加
+        adapter2 = new ArrayAdapter<String>(this,R.layout.log_layout,R.id.logText,logList);
 
         //リストのアイテムをタップした時の処理
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -38,7 +44,8 @@ public class MainActivity extends Activity{
                 // クリックされたアイテムを取得します
                 String item = (String) listView.getItemAtPosition(position);
                 //Toast.makeText(ListViewSampleActivity.this, item, Toast.LENGTH_LONG).show();
-                ca.setViewsb(item);
+                //ca.setViewsb(item);
+                ca.setFormula(item);
                 tv = (TextView) findViewById(R.id.textView2);
                 ca.updateView(view, tv);
             }
@@ -57,14 +64,17 @@ public class MainActivity extends Activity{
 
     /*リストに式を追加するときのボタンを押した時の処理*/
     public void addList(View view) {
-        String str = ca.getViewsb();
+        String str = ca.getFormula();
         if(str != "") {
-            if(ca.getViewsb().indexOf("+") !=-1 || ca.getViewsb().indexOf("-") !=-1 || ca.getViewsb().indexOf("*") !=-1 || ca.getViewsb().indexOf("/") !=-1){
-                Toast.makeText(this, "You can serve only number", Toast.LENGTH_SHORT).show();
-            }else {
-                formulaList.add(str);
+//            if(ca.getViewsb().indexOf("+") !=-1 || ca.getViewsb().indexOf("-") !=-1 || ca.getViewsb().indexOf("*") !=-1 || ca.getViewsb().indexOf("/") !=-1){
+//                Toast.makeText(this, "You can serve only number", Toast.LENGTH_SHORT).show();
+//            }else {
+                //formulaList.add(str);
                 listView.setAdapter(adapter);
-            }
+                // 要素を一番上に追加
+                adapter.insert(str, 0);
+
+//            }
         }
     }
 
@@ -93,11 +103,14 @@ public class MainActivity extends Activity{
     //画面のボタンが押された時の処理
     public void viewNumber(View view){
         tv = (TextView)findViewById(R.id.textView2);
-<<<<<<< HEAD
-        TextView logtv = (TextView)findViewById(R.id.log);//テスト用
-=======
-        TextView logtv = (TextView)findViewById(R.id.textView1);//テスト用
->>>>>>> ShowLog
-        ca.calc(view,tv,logtv);//数字の表示、計算
+        //TextView logtv = (TextView)findViewById(R.id.log);//テスト用
+        //ca.calc(view,tv,logtv,adapter2,listView2);//数字の表示、計算
+        ca.calc(view,tv,adapter2,listView2);
+    }
+
+    public void addLog(String str){
+        listView2.setAdapter(adapter2);
+        // 要素を一番上に追加
+        adapter2.insert(str, 0);
     }
 }
