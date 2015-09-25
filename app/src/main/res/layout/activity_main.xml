@@ -13,22 +13,50 @@
         android:background="#ffffff">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autoText="false"
             android:textSize="64sp"
             android:textColor="#000000"
             android:id="@+id/textView2"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:text="aaa"
+            android:setGravity="right"
+            android:gravity="right" />
     </FrameLayout>
 
+    <LinearLayout
+        android:id="@+id/list_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/frameLayout1"
+        android:orientation="horizontal"
+        android:background="#ffffff"
+        android:layout_marginTop="2dp"
+        >
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="メモリ"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="履歴"
+            android:layout_marginLeft="5dp"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/frameLayout1"
+        android:layout_below="@+id/list_title"
         android:layout_above="@+id/row1"
         android:orientation="horizontal"
         android:background="#ffffff"
@@ -67,7 +95,8 @@
             bootstrap:bb_type="default"
             android:layout_column="0"
             android:layout_row="0"
-            android:onClick="addList" />
+            android:onClick="addList"
+            android:textStyle="bold" />
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="0dip"
@@ -76,6 +105,7 @@
             android:text="+/-"
             android:id="@+id/swich"
             bootstrap:bb_type="default"
+            android:textStyle="bold"
             />
 
         <com.beardedhen.androidbootstrap.BootstrapButton
@@ -87,7 +117,8 @@
             bootstrap:bb_type="default"
             android:layout_column="2"
             android:layout_row="0"
-            android:onClick="viewNumber" />
+            android:onClick="viewNumber"
+            android:textStyle="bold"/>
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="0dip"
@@ -98,7 +129,8 @@
             bootstrap:bb_type="default"
             android:layout_column="3"
             android:layout_row="0"
-            android:onClick="viewNumber" />
+            android:onClick="viewNumber"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <LinearLayout
@@ -116,7 +148,8 @@
             bootstrap:bb_type="default"
             android:layout_column="0"
             android:layout_row="1"
-            android:onClick="viewNumber" />
+            android:onClick="viewNumber"
+            android:textStyle="bold"/>
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="0dip"
@@ -127,7 +160,8 @@
             bootstrap:bb_type="default"
             android:layout_column="1"
             android:layout_row="1"
-            android:onClick="viewNumber" />
+            android:onClick="viewNumber"
+            android:textStyle="bold"/>
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="0dip"
@@ -138,7 +172,8 @@
             bootstrap:bb_type="default"
             android:layout_column="2"
             android:layout_row="1"
-            android:onClick="viewNumber" />
+            android:onClick="viewNumber"
+            android:textStyle="bold"/>
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="0dip"
@@ -148,7 +183,8 @@
             android:id="@+id/divi"
             android:layout_column="3"
             android:layout_row="1"
-            android:onClick="viewNumber" />
+            android:onClick="viewNumber"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <LinearLayout
@@ -166,7 +202,8 @@
             bootstrap:bb_type="default"
             android:layout_column="0"
             android:layout_row="2"
-            android:onClick="viewNumber" />
+            android:onClick="viewNumber"
+            android:textStyle="bold"/>
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="0dip"
@@ -176,7 +213,8 @@
             android:id="@+id/number5"
             android:onClick="viewNumber"
             android:layout_column="1"
-            android:layout_row="2"/>
+            android:layout_row="2"
+            android:textStyle="bold"/>
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="0dip"
@@ -187,7 +225,8 @@
             bootstrap:bb_type="default"
             android:layout_column="2"
             android:layout_row="2"
-            android:onClick="viewNumber" />
+            android:onClick="viewNumber"
+            android:textStyle="bold"/>
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="0dip"
@@ -198,7 +237,8 @@
             bootstrap:bb_type="default"
             android:layout_column="3"
             android:layout_row="2"
-            android:onClick="viewNumber" />
+            android:onClick="viewNumber"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <LinearLayout
@@ -216,7 +256,8 @@
             bootstrap:bb_type="default"
             android:onClick="viewNumber"
             android:layout_column="0"
-            android:layout_row="3"/>
+            android:layout_row="3"
+            android:textStyle="bold"/>
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="0dip"
@@ -227,7 +268,8 @@
             bootstrap:bb_type="default"
             android:onClick="viewNumber"
             android:layout_column="1"
-            android:layout_row="3"/>
+            android:layout_row="3"
+            android:textStyle="bold"/>
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="0dip"
@@ -238,7 +280,8 @@
             bootstrap:bb_type="default"
             android:layout_column="2"
             android:layout_row="3"
-            android:onClick="viewNumber"/>
+            android:onClick="viewNumber"
+            android:textStyle="bold"/>
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="0dip"
@@ -249,7 +292,8 @@
             bootstrap:bb_type="default"
             android:layout_column="3"
             android:layout_row="3"
-            android:onClick="viewNumber" />
+            android:onClick="viewNumber"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <LinearLayout
@@ -267,7 +311,8 @@
             bootstrap:bb_type="default"
             android:layout_column="0"
             android:layout_row="4"
-            android:onClick="viewNumber" />
+            android:onClick="viewNumber"
+            android:textStyle="bold"/>
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="0dip"
@@ -278,7 +323,8 @@
             bootstrap:bb_type="default"
             android:layout_column="1"
             android:layout_row="4"
-            android:onClick="viewNumber" />
+            android:onClick="viewNumber"
+            android:textStyle="bold"/>
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="0dip"
@@ -289,7 +335,8 @@
             bootstrap:bb_type="default"
             android:layout_column="2"
             android:layout_row="4"
-            android:onClick="viewNumber" />
+            android:onClick="viewNumber"
+            android:textStyle="bold"/>
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="0dip"
@@ -300,7 +347,8 @@
             bootstrap:bb_type="default"
             android:layout_column="3"
             android:layout_row="4"
-            android:onClick="viewNumber" />
+            android:onClick="viewNumber"
+            android:textStyle="bold"/>
     </LinearLayout>
 
 </RelativeLayout>
