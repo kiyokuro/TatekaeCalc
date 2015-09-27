@@ -38,11 +38,18 @@ public class Calc extends Activity{
 
     public void calc(View view,TextView tv,ArrayAdapter<String> adapter2,ListView listView2){
         /*画面の数字を入力するエリアのサイズ上13文字以上は見えなくなるため入力させない*/
-        //if(formula.length()>=15 && view.getId()!=R.id.clear){
-            //if(formula.length()>=15 && view.getId()!=R.id.back){
-                //return;
-            //}
-        //}
+        if(formula.length()>=14 && view.getId()!=R.id.clear){
+            if(formula.length()>=14 && view.getId()!=R.id.back){
+                if(formula.length()>=14 && view.getId()!=R.id.equal) {
+                    return;
+                }
+            }
+        }
+        /*Infinityが表示されていたら消す*/
+        if(formula.lastIndexOf("y")==formula.length()-1){
+            formula.delete(0,formula.length());
+            tv.setText(formula.toString());
+        }
         switch(view.getId()){
             /*0の処理*/
             case R.id.number0 :
@@ -142,10 +149,17 @@ public class Calc extends Activity{
                 break;
             /*＝の処理*/
             case R.id.equal :
+                if(formula.lastIndexOf("+")==formula.length()-1 || formula.lastIndexOf("-")==formula.length()-1 || formula.lastIndexOf("*")==formula.length()-1 || formula.lastIndexOf("/")==formula.length()-1){
+                    break;
+                }
                 equal_subsequent = true;
-                tv.setText(Double.toString(calc(operator,formula,adapter2,listView2)));
-                after_dot = false;
+                tv.setText(calc(operator, formula, adapter2, listView2));
+                after_dot = true;
                 after_operator2 = true;
+                break;
+            /*+/-の処理*/
+            case R.id.swich :
+
                 break;
             /*CRLの処理*/
             case R.id.clear :
@@ -196,8 +210,7 @@ public class Calc extends Activity{
     }
 
     /*イコールが押された時の計算*/
-    private double calc(int i, StringBuilder formula,ArrayAdapter<String> adapter2,ListView listView2){
-        after_dot=true;////////////////////////////////////////////////////////////////////////////////////////////////////この処理は消す可能性がある
+    private String calc(int i, StringBuilder formula,ArrayAdapter<String> adapter2,ListView listView2){
         //textView.setText(String.valueOf(formula));
         listView2.setAdapter(adapter2);
         // 要素を一番上に追加
@@ -210,10 +223,30 @@ public class Calc extends Activity{
         Expression exp = rule.parse(String.valueOf(formula));//解析
         double result = exp.evalDouble(); //計算実施
 
-        formula.delete(0,formula.length());
-        formula.append(result);
+        formula.delete(0, formula.length());
+        //formula.append(result);
 
-        return result;
+        StringBuilder temp = new StringBuilder();
+        temp.append(result);
+        if(formula.lastIndexOf("0")==formula.length()-1 && formula.lastIndexOf(".")==formula.length()-2){
+            formula.delete(formula.length()-2,formula.length());
+            temp.delete(temp.length()-2,temp.length());
+        }
+        if(temp.length()>14){
+            temp.delete(14,temp.length());
+        }
+        if(temp.indexOf(".")!=-1){
+            while(temp.lastIndexOf("0")==temp.length()-1){
+                temp.delete(temp.length()-1,temp.length());
+            }
+            if(temp.lastIndexOf(".")==temp.length()-1){
+                temp.delete(temp.length()-1,temp.length());
+            }
+
+        }
+        String fixResult = String.valueOf(temp);
+        formula.append(temp);
+        return fixResult;
     }
 
     private void newInsert(){
@@ -223,6 +256,7 @@ public class Calc extends Activity{
             calcvalues[1]=0.0;
             is_numcopy = true;
             equal_subsequent = false;
+            after_dot = false;
         }
     }
 }
