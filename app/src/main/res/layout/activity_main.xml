@@ -21,7 +21,8 @@
             android:id="@+id/textView2"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:gravity="right" />
+            android:gravity="right"
+            android:singleLine="true"/>
     </FrameLayout>
 
     <LinearLayout

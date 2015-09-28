@@ -159,7 +159,12 @@ public class Calc extends Activity{
                 break;
             /*+/-の処理*/
             case R.id.swich :
+                boolean mui=false;//－符号の有無
+                //if(mui==false) {
+                //    formula.append("-");
+                //}else {
 
+                //}
                 break;
             /*CRLの処理*/
             case R.id.clear :
@@ -218,10 +223,15 @@ public class Calc extends Activity{
         if(listView2.getCount() > 20){
             adapter2.remove(adapter2.getItem(20));
         }
-
-        Rule rule = ExpRuleFactory.getDefaultRule();
-        Expression exp = rule.parse(String.valueOf(formula));//解析
-        double result = exp.evalDouble(); //計算実施
+        double result=0.0;
+        try {
+            Rule rule = ExpRuleFactory.getDefaultRule();
+            Expression exp = rule.parse(String.valueOf(formula));//解析
+            result = exp.evalDouble(); //計算実施
+        }catch (Exception e){
+            formula.delete(0, formula.length());
+            return "エラー";
+        }
 
         formula.delete(0, formula.length());
         //formula.append(result);
