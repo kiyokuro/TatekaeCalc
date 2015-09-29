@@ -35,6 +35,7 @@ public class Calc extends Activity{
     private boolean after_operator = true;//演算子が入力された。各項の初めに演算子とドットが入らないようにするため、初期値はtrueにする
     private boolean after_operator2 = true;
     private boolean after_dot = false;//小数点が入力された後か
+    private boolean isMinus = false;//演算子と別に－があるか
 
     public void calc(View view,TextView tv,ArrayAdapter<String> adapter2,ListView listView2){
         /*画面の数字を入力するエリアのサイズ上13文字以上は見えなくなるため入力させない*/
@@ -128,6 +129,30 @@ public class Calc extends Activity{
                 break;
             /*－の処理*/
             case R.id.minus :
+                if (formula.length() == 0) {
+                    formula.append("-");
+                } else if (formula.lastIndexOf("+") == formula.length() - 1 || formula.lastIndexOf("*") == formula.length() - 1 || formula.lastIndexOf("/") == formula.length() - 1) {
+                    formula.append("-");
+                    if (formula.lastIndexOf("-") == formula.length() - 1) {
+                        if(formula.lastIndexOf("+") == formula.length() - 1 || formula.lastIndexOf("*") == formula.length() - 1 || formula.lastIndexOf("/") == formula.length() - 1){
+                            formula.delete(formula.length() - 1, formula.length());
+                        }else {
+                            //Log.v("formula★", String.valueOf(formula.lastIndexOf("-")));
+
+                        }
+                    } else {
+
+                    }
+                }else if(formula.lastIndexOf("-") == formula.length() - 1){
+                    if(formula.lastIndexOf("+") == formula.length() - 2 || formula.lastIndexOf("*") == formula.length() - 2 || formula.lastIndexOf("/") == formula.length() - 2) {
+
+                    }else{
+                        formula.delete(formula.length() - 1, formula.length());
+                        formula.append("+");
+                    }
+                }
+
+                tv.setText(formula.toString());
                 if(after_operator == true) {
                     break;
                 }
@@ -181,11 +206,15 @@ public class Calc extends Activity{
                 if(formula.length()==0) {
                     break;
                 }
+                if (formula.lastIndexOf("+") == formula.length() - 1 || formula.lastIndexOf("-") == formula.length() - 1 ||
+                        formula.lastIndexOf("*") == formula.length() - 1 || formula.lastIndexOf("/") == formula.length() - 1) {
+                    after_operator=false;
+                }
                 /*1文字消してそれがドットならafter_dotをfalseに戻す*/
                 if(formula.lastIndexOf(".")==formula.length()-1) {
                     after_dot = false;
                 }
-                Log.v("★", String.valueOf(after_dot));
+                Log.v("★", String.valueOf(after_operator));
                 formula.delete(formula.length()-1,formula.length());
                 tv.setText(formula.toString());
                 break;
@@ -220,6 +249,7 @@ public class Calc extends Activity{
         listView2.setAdapter(adapter2);
         // 要素を一番上に追加
         adapter2.insert(String.valueOf(formula), 0);
+        //ログの要素の数が20を超えたら古い要素から消していく
         if(listView2.getCount() > 20){
             adapter2.remove(adapter2.getItem(20));
         }

@@ -73,7 +73,10 @@ public class MainActivity extends Activity{
                 listView.setAdapter(adapter);
                 // —v‘f‚ðˆê”Ôã‚É’Ç‰Á
                 adapter.insert(str, 0);
-
+                //ƒƒ‚ƒŠ‚Ì—v‘f‚Ì”‚ª20‚ð’´‚¦‚½‚çŒÃ‚¢‚à‚Ì‚©‚çÁ‚µ‚Ä‚¢‚­
+                if(listView.getCount() > 20){
+                    adapter.remove(adapter.getItem(20));
+                }
 //            }
         }
     }
