@@ -275,7 +275,7 @@ public class Calc extends Activity{
         if(temp.length()>14){
             temp.delete(14,temp.length());
         }
-        if(temp.indexOf(".")!=-1){
+        if(temp.indexOf(".")!=-1 && temp.indexOf("E")==-1){
             while(temp.lastIndexOf("0")==temp.length()-1){
                 temp.delete(temp.length()-1,temp.length());
             }
