@@ -11,19 +11,16 @@
         android:layout_height="wrap_content"
         android:id="@+id/frameLayout1"
         android:background="#ffffff">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autoText="false"
-            android:textSize="64sp"
+            android:textSize="52sp"
             android:textColor="#000000"
             android:id="@+id/textView2"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:text="aaa"
-            android:setGravity="right"
-            android:gravity="right" />
+            android:gravity="right"
+            android:singleLine="true"/>
     </FrameLayout>
 
     <LinearLayout
@@ -64,12 +61,13 @@
         android:layout_marginBottom="1dp"
         >
 
-        <ListView
+        <de.timroes.android.listview.EnhancedListView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:id="@+id/listView"
-            android:layout_marginRight="5dp"/>
+            android:layout_marginRight="5dp">
+        </de.timroes.android.listview.EnhancedListView>
 
         <ListView
             android:layout_width="0dp"
@@ -102,7 +100,7 @@
             android:layout_width="0dip"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="+/-"
+            android:text=" "
             android:id="@+id/swich"
             bootstrap:bb_type="default"
             android:textStyle="bold"

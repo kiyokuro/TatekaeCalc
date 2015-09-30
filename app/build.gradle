@@ -24,4 +24,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile files('libs/eval16.jar')
     compile 'com.beardedhen:androidbootstrap:1.2.3'
+    compile 'de.timroes.android:EnhancedListView:0.3.4'
 }
