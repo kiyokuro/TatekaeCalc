@@ -51,6 +51,7 @@ public class MainActivity extends Activity{
                 ca.setFormula(item);
                 tv = (TextView) findViewById(R.id.textView2);
                 ca.updateView(view, tv);
+
             }
         });
         // スワイプで消す設定
@@ -124,15 +125,17 @@ public class MainActivity extends Activity{
         return super.onOptionsItemSelected(item);
     }
     TextView tv;
+
     //画面のボタンが押された時の処理
     public void viewNumber(View view){
         tv = (TextView)findViewById(R.id.textView2);
+        //is_scroll = true;
         //TextView logtv = (TextView)findViewById(R.id.log);//テスト用
         //ca.calc(view,tv,logtv,adapter2,listView2);//数字の表示、計算
         ca.calc(view,tv,adapter2,listView2);
     }
 
-    public void addLog(String str){
+    public void addLog(String str) {
         listView2.setAdapter(adapter2);
         // 要素を一番上に追加
         adapter2.insert(str, 0);

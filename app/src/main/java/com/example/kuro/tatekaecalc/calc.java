@@ -39,9 +39,9 @@ public class Calc extends Activity{
 
     public void calc(View view,TextView tv,ArrayAdapter<String> adapter2,ListView listView2){
         /*画面の数字を入力するエリアのサイズ上13文字以上は見えなくなるため入力させない*/
-        if(formula.length()>=14 && view.getId()!=R.id.clear){
-            if(formula.length()>=14 && view.getId()!=R.id.back){
-                if(formula.length()>=14 && view.getId()!=R.id.equal) {
+        if(formula.length()>=19 && view.getId()!=R.id.clear){
+            if(formula.length()>=19 && view.getId()!=R.id.back){
+                if(formula.length()>=19 && view.getId()!=R.id.equal) {
                     return;
                 }
             }
@@ -272,8 +272,8 @@ public class Calc extends Activity{
             formula.delete(formula.length()-2,formula.length());
             temp.delete(temp.length()-2,temp.length());
         }
-        if(temp.length()>14){
-            temp.delete(14,temp.length());
+        if(temp.length()>21){
+            temp.delete(21,temp.length());
         }
         if(temp.indexOf(".")!=-1 && temp.indexOf("E")==-1){
             while(temp.lastIndexOf("0")==temp.length()-1){
