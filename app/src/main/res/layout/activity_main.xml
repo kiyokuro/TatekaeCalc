@@ -63,12 +63,13 @@
         android:layout_marginBottom="1dp"
         >
 
-        <ListView
+        <de.timroes.android.listview.EnhancedListView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:id="@+id/listView"
-            android:layout_marginRight="5dp"/>
+            android:layout_marginRight="5dp">
+        </de.timroes.android.listview.EnhancedListView>
 
         <ListView
             android:layout_width="0dp"
