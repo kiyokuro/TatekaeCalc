@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import jp.gr.java_conf.kzstudio.tatekaecalc.R;
 import jp.hishidama.eval.ExpRuleFactory;
 import jp.hishidama.eval.Expression;
 import jp.hishidama.eval.Rule;
@@ -39,7 +40,7 @@ public class Calc extends Activity{
 
     public void calc(View view,TextView tv,ArrayAdapter<String> adapter2,ListView listView2){
         /*画面の数字を入力するエリアのサイズ上13文字以上は見えなくなるため入力させない*/
-        if(formula.length()>=19 && view.getId()!=R.id.clear){
+        if(formula.length()>=19 && view.getId()!= R.id.clear){
             if(formula.length()>=19 && view.getId()!=R.id.back){
                 if(formula.length()>=19 && view.getId()!=R.id.equal) {
                     return;
