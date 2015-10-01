@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import de.timroes.android.listview.EnhancedListView;
+import jp.gr.java_conf.kzstudio.tatekaecalc.R;
 
 
 public class MainActivity extends Activity{
