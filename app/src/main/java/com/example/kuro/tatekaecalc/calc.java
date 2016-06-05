@@ -16,7 +16,7 @@ import jp.hishidama.eval.Rule;
  * Created by kiyokuro on 2015/07/04.
  */
 
-public class Calc extends Activity{
+class Calc extends Activity{
     public String getFormula(){return String.valueOf(formula);}
     public void setFormula(String str){formula.append(str);}
     public void updateView(View view,TextView tv){
